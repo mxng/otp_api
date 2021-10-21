@@ -1,13 +1,9 @@
 require "test_helper"
 
 class OtpControllerTest < ActionDispatch::IntegrationTest
-  test "should get index" do
-    get otp_index_url
-    assert_response :success
-  end
-
-  test "should get verification" do
-    get otp_verification_url
-    assert_response :success
+  test "otp is 6 digits" do
+    otp = Otp.new(phone_number: 12312312, otp: Otp.generate_otp)
+    # converts otp to string first as otp.otp.size is giving 8
+    assert_equal 6, otp.otp.to_s.length
   end
 end
